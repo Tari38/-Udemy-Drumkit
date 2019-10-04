@@ -1,19 +1,4 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const mongoose = require("mongoose");
 
-const app = express();
-
-app.set('view engine', 'ejs');
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
-
-mongoose.connect("mongodb+srv://admin-sam:acerK222HQL@drumkit-cluster-bckjc.mongodb.net/index", {useNewUrlParser: true}, {useUnifiedTopology: true});
-
-
-app.get("*", function() {
 
 const numberOfDrumButtons = document.querySelectorAll(".drum").length;
 
@@ -91,12 +76,3 @@ function buttonAnimation(currentKey) {
       activeButton.classList.remove("pressed");
     }, 100);
 }
-})
-
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
-app.listen(port, function() {
-  console.log("Server has started successfully.");
-});
