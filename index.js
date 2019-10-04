@@ -10,24 +10,26 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+mongoose.connect("mongodb+srv://admin-sam:acerK222HQL@drumkit-cluster-bckjc.mongodb.net/index", {useNewUrlParser: true}, {useUnifiedTopology: true});
 
- //Detecting Button press
+
+app.get("*", function() {
 
 const numberOfDrumButtons = document.querySelectorAll(".drum").length;
 
-for (const i = 0; i<numberOfDrumButtons; i++) {
+ for (const i = 0; i <numberOfDrumButtons; i++) {
+//Detecting Button press
+   document.querySelectorAll(".drum")[i].addEventListener("click", function() {
 
-  document.querySelectorAll(".drum")[i].addEventListener("click", function() {
+     const buttonInnerHTML = this.innerHTML;
 
-    const buttonInnerHTML = this.innerHTML;
+     makeSound(buttonInnerHTML);
 
-    makeSound(buttonInnerHTML);
+     buttonAnimation(buttonInnerHTML);
 
-    buttonAnimation(buttonInnerHTML);
+   })
 
-  });
-
-}
+ }
 
 //Detecting keyboard press
 
@@ -89,6 +91,7 @@ function buttonAnimation(currentKey) {
       activeButton.classList.remove("pressed");
     }, 100);
 }
+})
 
 let port = process.env.PORT;
 if (port == null || port == "") {
